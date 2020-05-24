@@ -1,6 +1,9 @@
 # learn-charts
 Experiment on libraries to display charts in JavaScript
 
+## last-updated
+May 2020
+
 ## news-and-updates
 
 Date | Event
@@ -47,6 +50,3 @@ See [LICENSE](./LICENSE)
 
 ## contact
 [@PatrickDesm](https://twitter.com/PatrickDesm)
-
-## last-updated
-May 2020
