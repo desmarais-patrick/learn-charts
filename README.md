@@ -8,22 +8,26 @@ May 2020
 
 Date | Event
 ---- | -----
-24 May 2020 | First example coming soon...
+24 May 2020 | First example with Chart.js
 
 ## change-log
 
 Date | Change Summary
 ---- | --------------
-24 May 2020 | Initialize repo with README ("API" first)
+24 May 2020 | Initialize repo with README ("API" first) and add first example.
 
 ## requirements
 
 - Browser
+- Terminal
+- Python 2.7 or 3
 
-Testing with Chrome 85+ on macOS Catalina 10.15.4.
+Testing with Chrome 85+ on macOS Catalina 10.15.4, Terminal 2.10 and Python 2.7.
 
 ## how-to-run-examples
-@Browser, open the `src/index.html`
+@Terminal, cd to `src` and run `python -m SimpleHTTPServer 8000`
+
+@Browser, open [localhost:8000](http://localhost:8000/)
 
 - Loads references to local script and style files
 - Displays examples

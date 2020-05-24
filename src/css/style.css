@@ -1,0 +1,12 @@
+body {
+    max-width: 800px;
+    margin: auto;
+}
+
+h1, h2 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+}
