@@ -22,10 +22,12 @@ Date | Change Summary
 - Terminal
 - Python 2.7 or 3
 
-Testing with Chrome 85+ on macOS Catalina 10.15.4, Terminal 2.10 and Python 2.7.
+Testing with Chrome 85.0 on macOS Catalina 10.15.5, Terminal 2.10 and Python 2.7.16
 
 ## how-to-run-examples
-@Terminal, cd to `src` and run `python -m SimpleHTTPServer 8000`
+@Terminal, cd to `src`
+
+@Termina (@Python) run `python -m SimpleHTTPServer 8000`
 
 @Browser, open [localhost:8000](http://localhost:8000/)
 
