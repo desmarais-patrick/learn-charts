@@ -1,3 +1,6 @@
+/*global document, Chart, moment*/
+import Moment from "./deps/moment/moment.js";
+
 import { ChartHelperFactory } from "./charts/helpers/ChartHelperFactory.js";
 import { ChartFactory } from "./charts/ChartFactory.js";
 
@@ -7,6 +10,17 @@ let chartHelperFactory = new ChartHelperFactory();
 let chartFactory = new ChartFactory();
 
 export let LearnCharts = {
-    chartHelperFactory: chartHelperFactory,
-    chartFactory: chartFactory
+    browser: {
+        document
+    },
+
+    deps: {
+        Chart,
+        Moment
+    },
+
+    src: {
+        chartHelperFactory: chartHelperFactory,
+        chartFactory: chartFactory,
+    },
 };

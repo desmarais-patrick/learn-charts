@@ -40,7 +40,7 @@ Testing with Chrome 85.0 on macOS Catalina 10.15.5, Terminal 2.10 and Python 2.7
 File | Descriptions
 ---- | ------------
 src/js/**charts**/ | My wrappers for chart libraries
-src/js/**dist**/ | JavaScript libraries (ex. charting)
+src/js/**deps**/ | JavaScript dependencies, libraries (ex. charting, dates)
 src/js/**functions**/ | My representation of functions to chart
 src/js/**main.js** | Main JavaScript file
 src/css/**style.css** | Main CSS file

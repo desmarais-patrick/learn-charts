@@ -3,17 +3,28 @@
     <head>
         <meta charset="utf-8">
         <title>learn-charts</title>
+        <link rel="stylesheet" href="css/deps/chartjs/chart.css">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <h1>learn-charts</h1>
-        <h2>1. Basic Example</h2>
+        <h2>1. Basic bar chart</h2>
         <p>A bar chart from the usage examples on <a href="https://chartjs.org/docs/latest/getting-started/usage.html">Chart.js > Getting Started > Usage</a></p>
         <div>
             <canvas id="01_Basic-bar-chart" width="400" height="400"></canvas>
         </div>
-        <script src="js/dist/chart.bundle.js"></script>
+        <hr/>
+        <script type="module" src="js/deps/moment/moment.js"></script>
+        <script type="module" src="js/deps/moment/locale/en-ca.js"></script>
+        <script type="module" src="js/deps/moment/locale/fr-ca.js"></script>
+        <script src="js/deps/chartjs/chart.js"></script>
         <script type="module" src="js/main.js"></script>
         <script type="module" src="js/examples/01_Basic-bar-chart.js"></script>
+        <script type="module">
+            import { LearnCharts } from "./js/main.js";
+            import { BasicBarChartExample } from "./js/examples/01_Basic-bar-chart.js";
+            let example = new BasicBarChartExample(LearnCharts);
+            example.render("01_Basic-bar-chart");
+        </script>
     </body>
 </html>
