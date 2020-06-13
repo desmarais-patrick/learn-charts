@@ -1,4 +1,4 @@
-import { BaseFunction } from "./ConstantFunction.js";
+import BaseFunction from "./BaseFunction.js";
 
 export class ConstantFunction extends BaseFunction {
     constructor (constant) {

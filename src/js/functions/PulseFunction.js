@@ -1,4 +1,4 @@
-import { BaseFunction } from "./BaseFunction.js";
+import BaseFunction from "./BaseFunction.js";
 
 // Aka periodic function.
 // TODO Review if only useful when the value function's time period doesn't equate the graph's time period. Ex. Payments are due every 30 days but the chart displays data every day. Payments are due every two weeks but the chart displays sum over a month.

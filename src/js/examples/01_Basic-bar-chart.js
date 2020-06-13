@@ -1,4 +1,4 @@
-export class BasicBarChartExample {
+export default class {
     constructor(LearnCharts) {
         this.LearnCharts = LearnCharts;
     }

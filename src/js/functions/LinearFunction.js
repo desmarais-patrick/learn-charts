@@ -1,4 +1,4 @@
-import { BaseFunction } from "./BaseFunction.js";
+import BaseFunction from "./BaseFunction.js";
 
 export class LinearFunction extends BaseFunction {
     constructor (slope, intercept) {

@@ -27,9 +27,16 @@
         <script type="module" src="js/examples/01_Basic-bar-chart.js"></script>
         <script type="module">
             import { LearnCharts } from "./js/main.js";
-            import { BasicBarChartExample } from "./js/examples/01_Basic-bar-chart.js";
-            let example = new BasicBarChartExample(LearnCharts);
+            import Example1 from "./js/examples/01_Basic-bar-chart.js";
+            import Example2 from "./js/examples/02_Periodic-constant-values-over-a-month.js";
+
+            let example;
+
+            example = new Example1(LearnCharts);
             example.render("01_Basic-bar-chart");
+
+            example = new Example2(LearnCharts);
+            example.render("02_Periodic-constant-values-over-a-month");
         </script>
     </body>
 </html>

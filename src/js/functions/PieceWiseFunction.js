@@ -1,4 +1,4 @@
-import { BaseFunction } from "./BaseFunction.js";
+import BaseFunction from "./BaseFunction.js";
 
 // TODO Review if a sum can be done over an interval if all functions are pulse-interval ones.
 export class PieceWiseFunction extends BaseFunction {

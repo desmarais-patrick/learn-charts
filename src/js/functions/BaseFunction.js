@@ -1,5 +1,5 @@
 // TODO Review if we should have a displayName and a typeName. Ex. Display name could be used to give a cue to creator what it represents.
-export class BaseFunction {
+export default class BaseFunction {
     constructor (name) {
         this.name = name;
     }

@@ -6,6 +6,15 @@ import { PieceWiseFunction } from "./PieceWiseFunction.js";
 import { PulseFunction } from "./PulseFunction.js";
 
 export class FunctionFactory {
+    createFunction(name, options) {
+        let newOptions;
+        switch (name) {
+            case "Constant":
+                return new ConstantFunction(options.constant);
+            default:
+                throw new Error("Unrecognized function name: " + name);
+        }
+    }
     createCompoundFunction(initialAmount, compoundingFrequency, interestRate, 
             start, end) {
 

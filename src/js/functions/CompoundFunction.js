@@ -1,4 +1,4 @@
-import { BaseFunction } from "./BaseFunction.js";
+import BaseFunction from "./BaseFunction.js";
 
 export class CompoundFunction extends BaseFunction {
     constructor (initialAmount, compoundingFrequency, interestRate) {

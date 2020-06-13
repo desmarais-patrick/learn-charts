@@ -1,4 +1,4 @@
-import { BaseFunction } from "./BaseFunction.js";
+import BaseFunction from "./BaseFunction.js";
 
 // TODO Review if should be named Range instead
 export class IntervalFunction extends BaseFunction {
