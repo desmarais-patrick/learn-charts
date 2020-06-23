@@ -1,0 +1,51 @@
+html, body {
+    font-size: 10px;
+}
+
+@media (min-width: 720px) {
+    html, body {
+        font-size: 12px;
+    }
+}
+
+body {
+    font-family: Helvetica, sans-serif;
+    font-weight: normal;
+    line-height: 1.5;
+    color: #333333;
+}
+
+.secondary-text {
+    color: #666666;
+}
+
+h1, .h1, .title {
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+
+h2, .h2,
+h3, .h3 {
+    font-size: 1.2rem;
+    font-weight: lighter;
+}
+
+p {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+a {
+    font-size: 1rem;
+}
+
+button {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333333;
+}
+
+small {
+    font-size: .9rem;
+    font-weight: lighter;
+}
