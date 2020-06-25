@@ -12,37 +12,28 @@
         <div id="testResults"></div>
 
         <!-- Load source dependencies -->
-        <script type="module" src="js/deps/moment/moment.js"></script>
-        <script type="module" src="js/deps/moment/locale/en-ca.js"></script>
-        <script type="module" src="js/deps/moment/locale/fr-ca.js"></script>
-        <script src="js/deps/chartjs/chart.js"></script>
-        <script type="module" src="js/main.js"></script>
-
-        <!-- Load test dependencies -->
-        <script src="js/index.js"></script>
-        <script src="js/expect.js"></script>
-        <script src="js/htmlLogger.js"></script>
-        <script src="js/test.js"></script>
-        <script src="js/testSuite.js"></script>
-        <script src="js/testSuiteBuilder.js"></script>
-
-        <!-- Ready tests! -->
-        <script type="module" src="js/functions/RangeUnitTest.js"></script>
-        <script src="js/communication/requestBuilder.unitTest.js"></script>
-        <script src="js/model/app.unitTest.js"></script>
-        <script src="js/model/cache.unitTest.js"></script>
-        <script src="js/model/events.unitTest.js"></script>
-        <script src="js/model/note.unitTest.js"></script>
-        <script src="js/model/notes.unitTest.js"></script>
-        <script src="js/model/model.unitTest.js"></script>
-
-        <script src="js/utilities/dateUtilities.unitTest.js"></script>
-        <script src="js/utilities/listUtilities.unitTest.js"></script>
-        <script src="js/utilities/userUtilities.unitTest.js"></script>
+        <script type="module" src="../src/js/deps/moment/moment.js"></script>
+        <script type="module" src="../src/js/deps/moment/locale/en-ca.js"></script>
+        <script type="module" src="../src/js/deps/moment/locale/fr-ca.js"></script>
+        <script src="../src/js/deps/chartjs/chart.js"></script>
+        <script type="module" src="../src/js/main.js"></script>
 
         <!-- Lift off! -->
+        <script type="module">
+            import Tests from "./js/tests/Tests.js";
 
-        <script src="js/main.unitTest.js"></script>
-        <script src="js/main.test.js"></script>
+            import createRangeUnitTestSuite from "./js/functions/RangeUnitTest.js";
+
+            const tests = new Tests({
+                document: window.document,
+                rootNodeId: "testResults",
+                timeoutInMillis: 1000
+            });
+
+            // Test suites are added here.
+            tests.add(createRangeUnitTestSuite);
+
+            tests.run();
+        </script>
     </body>
 </html>
