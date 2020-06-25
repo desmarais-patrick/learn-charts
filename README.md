@@ -2,7 +2,7 @@
 Experiment on libraries to display charts in JavaScript
 
 ## last-updated
-May 2020
+June 2020
 
 ## news-and-updates
 
@@ -15,6 +15,7 @@ Date | Event
 Date | Change Summary
 ---- | --------------
 24 May 2020 | Initialize repo with README ("API" first) and add first example.
+24 June 2020 | Integrate unit tests to help with development.
 
 ## requirements
 
