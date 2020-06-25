@@ -1,5 +1,6 @@
 import { LearnCharts } from "../../../src/js/main.js";
-import Range from "../../../src/js/functions/Range.js";
+
+import RangeBuilder from "../../../src/js/functions/RangeBuilder.js";
 
 export default function createRangeUnitTestSuite({expect, testSuiteBuilder}) {
     const testSuite = testSuiteBuilder.build("Range");
@@ -8,8 +9,10 @@ export default function createRangeUnitTestSuite({expect, testSuiteBuilder}) {
     let aDateBefore = new Date('1995-12-16T12:24:00');
     let aDateAfter = new Date('1995-12-18T13:24:00');
 
+    let rangeBuilder = new RangeBuilder(LearnCharts);
+
     testSuite.addTest("Valid range is valid", (done) => {
-        const range = new Range(LearnCharts, aDateBefore, aDateAfter);
+        const range = rangeBuilder.build({from: aDateBefore, to: aDateAfter});
 
         expect(range.isValid()).toEqual(true);
         expect(range.includes(aDateBefore)).toEqual(true);
@@ -20,7 +23,7 @@ export default function createRangeUnitTestSuite({expect, testSuiteBuilder}) {
     });
 
     testSuite.addTest("Invalid range is invalid", (done) => {
-        const range = new Range(LearnCharts, aDateAfter, aDateBefore);
+        const range = rangeBuilder.build({from: aDateAfter, to: aDateBefore});
 
         expect(range.isValid()).toEqual(false);
 

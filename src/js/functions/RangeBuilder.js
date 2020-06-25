@@ -5,7 +5,7 @@ export default class RangeBuilder {
         this.LearnCharts = LearnCharts;
     }
 
-    createRange({from, to}) {
+    build({from, to}) {
         return new Range(this.LearnCharts, from, to);
     }
 }
