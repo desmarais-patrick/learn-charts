@@ -23,6 +23,7 @@
             import Tests from "./js/tests/Tests.js";
 
             import createRangeUnitTestSuite from "./js/functions/RangeUnitTest.js";
+            import createIntervalUnitTestSuite from "./js/functions/IntervalUnitTest.js";
 
             const tests = new Tests({
                 document: window.document,
@@ -32,6 +33,7 @@
 
             // Test suites are added here.
             tests.add(createRangeUnitTestSuite);
+            tests.add(createIntervalUnitTestSuite);
 
             tests.run();
         </script>
