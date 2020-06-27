@@ -20,9 +20,21 @@ export default function createIntervalUnitTestSuite({expect, testSuiteBuilder}) 
         const range = rangeBuilder.build({from: yesterday, to: tomorrow});
         const interval = intervalFactory.createDailyInterval(range);
 
+        expect(interval.size()).toEqual(3);
         expect(interval.includes(yesterday)).toEqual(true);
         expect(interval.includes(today)).toEqual(true);
         expect(interval.includes(tomorrow)).toEqual(true);
+
+        done();
+    });
+
+    testSuite.addTest("Daily interval of one", (done) => {
+        const today = new LearnCharts.deps.Moment();
+        const range = rangeBuilder.build({from: today, to: today});
+        const interval = intervalFactory.createDailyInterval(range);
+
+        expect(interval.size()).toEqual(1);
+        expect(interval.includes(today)).toEqual(true);
 
         done();
     });

@@ -13,6 +13,9 @@ export default class DateInterval {
         }
         return false;
     }
+    size() {
+        return this._interval.length;
+    }
     toString() {
         return `${this._name} interval with ${this._interval.length} values` + 
             ` between ${this._range.from} and ${this._range.to}. Values are:` +
