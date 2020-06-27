@@ -6,10 +6,6 @@ import IntervalFactory from "../../../src/js/functions/IntervalFactory.js";
 export default function createIntervalUnitTestSuite({expect, testSuiteBuilder}) {
     const testSuite = testSuiteBuilder.build("Interval");
 
-    let aDate = new Date('1995-12-17T03:24:00');
-    let aDateBefore = new Date('1995-12-16T12:24:00');
-    let aDateAfter = new Date('1995-12-18T13:24:00');
-
     let rangeBuilder = new RangeBuilder(LearnCharts);
     let intervalFactory = new IntervalFactory(LearnCharts);
 
