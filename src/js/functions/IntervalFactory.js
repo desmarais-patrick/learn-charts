@@ -28,60 +28,35 @@ export default class IntervalFactory {
         } while (date.isBefore(range.to) || date.isSame(range.to));
         return interval;
     }
-    createWeeklyInterval(range, optionalDaysOfWeek) {
+    createWeeklyInterval(range, optionalWeekDays) {
         // Common, such as expenses at groceries or coffee shops every week or so
         // ex. createWeeklyInterval(rangeAB) => Every week on weekDay(A) until B inclusively
         // ex. createWeeklyInterval(rangeAB, ["Monday"]) => Every Monday between A and B inclusively
         // ex. createWeeklyInterval(rangeAB, ["Monday", "Friday"]) => Every Monday and Friday between A and B inclusively
-        let targetDaysOfWeek = null;
-        if (typeof optionalDaysOfWeek !== "undefined") {
-            targetDaysOfWeek = optionalDaysOfWeek.map((dayOfWeek) => {
-                const mappedValue = this.DAYS_OF_WEEK[dayOfWeek];
-                if (typeof mappedValue !== "number") {
-                    throw new Error("Bad argument! Expected days of week as one of: " + Object.keys(this.DAYS_OF_WEEK).toString());
-                }
-                return mappedValue;
-            });
+        const interval = new Interval("Daily", range);
+        const targetWeekDays = this._translateWeekDaysToIntegers(range.from, optionalWeekDays);
+        const date = new this.LearnCharts.deps.Moment(range.from);
+        while (date.isBefore(range.to) || date.isSame(range.to)) {
+            if (targetWeekDays.indexOf(date.day()) >= 0) {
+                const copy = new this.LearnCharts.deps.Moment(date);
+                interval.addValue(copy);
+            }
+            date.add(1, "days");
         }
-        
-        
-
-        if (targetDaysOfWeek !== null) {
-            while (date.isBefore(range.to) &&
-                targetDaysOfWeek.indexOf(date.day()) === -1) {
-                    date.add(1, "days");
-                }
-        }
+        return interval;
     }
-    _translateDaysOfWeek(daysOfWeek) {
-        let targetDaysOfWeek = daysOfWeek.map((dayOfWeek) => {
-            const mappedValue = this.DAYS_OF_WEEK[dayOfWeek];
-            if (typeof mappedValue !== "number") {
-                throw new Error("Bad argument! Expected days of week as one of: " + Object.keys(this.DAYS_OF_WEEK).toString());
+    _translateWeekDaysToIntegers(fromDate, weekDays) {
+        if (typeof weekDays === "undefined") {
+            return [fromDate.day()];
+        }
+        return weekDays.map((weekDay) => {
+            const mappedValue = this.DAYS_OF_WEEK[weekDay];
+            if (typeof mappedValue === "undefined") {
+                throw new Error(`Bad argument! Expected weekday '${weekDay}'` + 
+                    ` to be one of: ${Object.keys(this.DAYS_OF_WEEK).toString()}`);
             }
             return mappedValue;
         });
-        return targetDaysOfWeek.sort();
-    }
-    _findFirstWeekDay(range, daysOfWeek) {
-        let date = range.from;
-        let isNoMatch;
-        while (isNoMatch = (daysOfWeek.indexOf(date.day()) === -1) && date.isBefore(range.to)) {
-            date.add(1, "days");
-        }
-        return isNoMatch ? null : date;
-    }
-    _createWeeklyInterval(range, daysOfWeek) {
-        const interval = new Interval("Weekly", range);
-
-        // Find the first day.
-
-        let date = range.from;
-        do {
-            interval.addValue(date);
-            date = date.add(7, "days");
-        } while (date.isBefore(range.to))
-        return interval;
     }
     createMonthlyInterval(range, optionalDaysOfMonth, optionalAssociatedDeltas) {
         // Common, such as rent payment every 1st of the month
@@ -99,7 +74,7 @@ export default class IntervalFactory {
         // Common, such as cellphone bill every 30 days
         // ex. createEveryNDay(2, rangeAB) => Every two days between A and B inclusively
     }
-    createEveryNWeek(n, range, optionalDaysOfWeek) {
+    createEveryNWeek(n, range, optionalWeekDays) {
         // Common, such as payday every two weeks on Wednesdays
         // ex. createEveryNWeek(2, rangeAB, ["Friday"]) => Every two Fridays between A and B inclusively
     }
