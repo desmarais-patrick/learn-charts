@@ -25,7 +25,7 @@ export default class IntervalFactory {
             const copy = new this.LearnCharts.deps.Moment(date);
             interval.addValue(copy);
             date = date.add(1, "days");
-        } while (date.isBefore(range.to) || date.isSame(range.to));
+        } while (date.isBefore(range.to, "day") || date.isSame(range.to, "day"));
         return interval;
     }
     createWeeklyInterval(range, optionalWeekDays) {
@@ -36,7 +36,7 @@ export default class IntervalFactory {
         const interval = new Interval("Weekly", range);
         const targetWeekDays = this._translateWeekDaysToIntegers(range.from, optionalWeekDays);
         const date = new this.LearnCharts.deps.Moment(range.from);
-        while (date.isBefore(range.to) || date.isSame(range.to)) {
+        while (date.isBefore(range.to, "day") || date.isSame(range.to, "day")) {
             if (targetWeekDays.indexOf(date.day()) >= 0) {
                 const copy = new this.LearnCharts.deps.Moment(date);
                 interval.addValue(copy);
@@ -64,26 +64,57 @@ export default class IntervalFactory {
         // ex. createMonthlyInterval(rangeAB, ["1"]) => Every 1st day of the month between A and B inclusively
         // ex. createMonthlyInterval(rangeAB, ["1", "15"]) => Every 1st and 15th of the month between A and B inclusively
         // ex. createMonthlyInverval(rangeAB, ["1"], [-3]) => Every 1st, minus three days, of the month between A and B inclusively
+        this._validateDeltas(optionalMonthlyDates, optionalAssociatedDeltas);
+
         const interval = new Interval("Monthly", range);
 
-        const monthlyDates = this._readyMonthlyDates(range.from, optionalMonthlyDates);
+        const monthlyDatesAndDeltas = this._readyMonthlyDatesAndDeltas(range.from, optionalMonthlyDates, optionalAssociatedDeltas);
         const lastDate = range.to;
-        while (monthlyDates.length > 0) {
-            const date = monthlyDates.shift();
+        while (monthlyDatesAndDeltas.length > 0) {
+            const dateAndDelta = monthlyDatesAndDeltas.shift();
+
+            const date = dateAndDelta.date;
             const copy = new this.LearnCharts.deps.Moment(date);
+            const delta = dateAndDelta.delta;
+            copy.add(delta, "days");
             interval.addValue(copy);
+
             date.add(1, "months");
-            if (date.isBefore(lastDate) || date.isSame(lastDate)) {
-                monthlyDates.push(date);
+            if (date.isBefore(lastDate, "day") || date.isSame(lastDate, "day")) {
+                monthlyDatesAndDeltas.push({date, delta});
             }
         }
 
         return interval;
     }
-    _readyMonthlyDates(fromDate, monthlyDates) {
+    _validateDeltas(monthlyDates, deltas) {
+        if (typeof monthlyDates === "undefined") {
+            return;
+        }
+
+        if (typeof deltas === "undefined") {
+            return;
+        }
+
+        if (monthlyDates.length !== deltas.length) {
+            let message = "Monthly dates is expected to have same amount of associated deltas. ";
+            message += `Found ${monthlyDates.length} dates and ${deltas.length} deltas.`; 
+            throw new Error(messsage);
+        }
+        
+        return;
+    }
+    _readyMonthlyDatesAndDeltas(fromDate, monthlyDates, deltas) {
         if (typeof monthlyDates === "undefined") {
             const copyDate = new this.LearnCharts.deps.Moment(fromDate);
-            return [copyDate];
+            return [{date: copyDate, delta: 0}];
+        }
+
+        let deltaCopies;
+        if (typeof deltas === "undefined") {
+            deltaCopies = monthlyDates.map((date) => 0);
+        } else {
+            deltaCopies = deltas.map((deltaValue) => deltaValue);
         }
 
         const result = [];
@@ -91,14 +122,20 @@ export default class IntervalFactory {
 
         let date = new this.LearnCharts.deps.Moment(fromDate);
         const nextMonthFromDate = (new this.LearnCharts.deps.Moment(fromDate)).add(1, "months");
-        while (date.isBefore(nextMonthFromDate) && monthlyDatesCopy.length > 0) {
+        while (date.isBefore(nextMonthFromDate, "day") && monthlyDatesCopy.length > 0) {
             let dateDate = date.date();
+
             while (monthlyDatesCopy.indexOf(dateDate) >= 0) {
                 let matchIndex = monthlyDatesCopy.indexOf(dateDate);
+
                 const copyDate = new this.LearnCharts.deps.Moment(date);
-                result.push(copyDate);
+                const delta = deltaCopies[matchIndex];
+                result.push({date: copyDate, delta});
+
                 monthlyDatesCopy.splice(matchIndex, 1);
+                deltaCopies.splice(matchIndex, 1);
             }
+
             date.add(1, "days");
         }
         return result;

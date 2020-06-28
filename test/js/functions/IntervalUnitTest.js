@@ -152,32 +152,32 @@ export default function createIntervalUnitTestSuite({expect, testSuiteBuilder}) 
         done();
     });
 
-    // testSuite.addTest("Monthly interval (specific days and deltas)", (done) => {
-    //     const from = new LearnCharts.deps.Moment("2020-06-01");
-    //     const expected1 = new LearnCharts.deps.Moment("2020-05-26");
-    //     const expected2 = new LearnCharts.deps.Moment("2020-06-09");
-    //     const expected3 = new LearnCharts.deps.Moment("2020-06-25");
-    //     const expected4 = new LearnCharts.deps.Moment("2020-07-09");
-    //     const expected5 = new LearnCharts.deps.Moment("2020-07-26");
-    //     const expected6 = new LearnCharts.deps.Moment("2020-08-09");
-    //     const expected7 = new LearnCharts.deps.Moment("2020-08-26");
-    //     const to = new LearnCharts.deps.Moment("2020-09-01");
-    //     const expectedNumberOfIntervalDates = 7;
-    //     const range = rangeBuilder.build({from, to});
+    testSuite.addTest("Monthly interval (specific days and deltas)", (done) => {
+        const from = new LearnCharts.deps.Moment("2020-06-01");
+        const expected1 = new LearnCharts.deps.Moment("2020-05-26");
+        const expected2 = new LearnCharts.deps.Moment("2020-06-09");
+        const expected3 = new LearnCharts.deps.Moment("2020-06-25");
+        const expected4 = new LearnCharts.deps.Moment("2020-07-09");
+        const expected5 = new LearnCharts.deps.Moment("2020-07-26");
+        const expected6 = new LearnCharts.deps.Moment("2020-08-09");
+        const expected7 = new LearnCharts.deps.Moment("2020-08-26");
+        const to = new LearnCharts.deps.Moment("2020-09-01");
+        const expectedNumberOfIntervalDates = 7;
+        const range = rangeBuilder.build({from, to});
 
-    //     const interval = intervalFactory.createMonthlyInterval(range, [1, 15], [-6, -6]);
+        const interval = intervalFactory.createMonthlyInterval(range, [1, 15], [-6, -6]);
 
-    //     expect(interval.size()).toEqual(expectedNumberOfIntervalDates);
-    //     expect(interval.includes(expected1)).toEqual(true);
-    //     expect(interval.includes(expected2)).toEqual(true);
-    //     expect(interval.includes(expected3)).toEqual(true);
-    //     expect(interval.includes(expected4)).toEqual(true);
-    //     expect(interval.includes(expected5)).toEqual(true);
-    //     expect(interval.includes(expected6)).toEqual(true);
-    //     expect(interval.includes(expected7)).toEqual(true);
+        expect(interval.size()).toEqual(expectedNumberOfIntervalDates);
+        expect(interval.includes(expected1)).toEqual(true);
+        expect(interval.includes(expected2)).toEqual(true);
+        expect(interval.includes(expected3)).toEqual(true);
+        expect(interval.includes(expected4)).toEqual(true);
+        expect(interval.includes(expected5)).toEqual(true);
+        expect(interval.includes(expected6)).toEqual(true);
+        expect(interval.includes(expected7)).toEqual(true);
 
-    //     done();
-    // });
+        done();
+    });
     
     testSuite.addTest("Monthly interval (empty)", (done) => {
         const aDate = new LearnCharts.deps.Moment("2020-06-29");

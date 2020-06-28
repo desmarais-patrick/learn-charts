@@ -8,10 +8,7 @@ export default class DateInterval {
         this._interval.push(newValue);
     }
     includes(x) {
-        if (this._range.includes(x)) {
-            return !!this._interval.find((value) => value.isSame(x, "day"));
-        }
-        return false;
+        return !!this._interval.find((value) => value.isSame(x, "day"));
     }
     size() {
         return this._interval.length;
