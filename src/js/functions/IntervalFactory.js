@@ -33,7 +33,7 @@ export default class IntervalFactory {
         // ex. createWeeklyInterval(rangeAB) => Every week on weekDay(A) until B inclusively
         // ex. createWeeklyInterval(rangeAB, ["Monday"]) => Every Monday between A and B inclusively
         // ex. createWeeklyInterval(rangeAB, ["Monday", "Friday"]) => Every Monday and Friday between A and B inclusively
-        const interval = new Interval("Daily", range);
+        const interval = new Interval("Weekly", range);
         const targetWeekDays = this._translateWeekDaysToIntegers(range.from, optionalWeekDays);
         const date = new this.LearnCharts.deps.Moment(range.from);
         while (date.isBefore(range.to) || date.isSame(range.to)) {
@@ -64,6 +64,29 @@ export default class IntervalFactory {
         // ex. createMonthlyInterval(rangeAB, ["1"]) => Every 1st day of the month between A and B inclusively
         // ex. createMonthlyInterval(rangeAB, ["1", "15"]) => Every 1st and 15th of the month between A and B inclusively
         // ex. createMonthlyInverval(rangeAB, ["1"], [-3]) => Every 1st, minus three days, of the month between A and B inclusively
+        const interval = new Interval("Monthly", range);
+
+        let date = new this.LearnCharts.deps.Moment(range.from);
+        do {
+            const copy = new this.LearnCharts.deps.Moment(date);
+            interval.addValue(copy);
+            date.add(1, "months");
+        } while (date.isBefore(range.to) || date.isSame(range.to));
+
+        return interval;
+    }
+    _translateMonthDays(fromDate, filterDays) {
+        if (typeof filterDays === "undefined") {
+            return [fromDate.date()];
+        }
+        return weekDays.map((weekDay) => {
+            const mappedValue = this.DAYS_OF_WEEK[weekDay];
+            if (typeof mappedValue === "undefined") {
+                throw new Error(`Bad argument! Expected weekday '${weekDay}'` + 
+                    ` to be one of: ${Object.keys(this.DAYS_OF_WEEK).toString()}`);
+            }
+            return mappedValue;
+        });
     }
     createYearlyInterval(range, optionalDaysOfYear) {
         // Common, such as permit payment every year on birthday

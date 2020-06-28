@@ -100,5 +100,92 @@ export default function createIntervalUnitTestSuite({expect, testSuiteBuilder}) 
         done();
     });
 
+    testSuite.addTest("Monthly interval", (done) => {
+        const month1 = new LearnCharts.deps.Moment("2020-06-01");
+        const month2 = new LearnCharts.deps.Moment("2020-07-01");
+        const month3 = new LearnCharts.deps.Moment("2020-08-01");
+        const month4 = new LearnCharts.deps.Moment("2020-09-01");
+        const month5 = new LearnCharts.deps.Moment("2020-10-01");
+        const month6 = new LearnCharts.deps.Moment("2020-11-01");
+        const month7 = new LearnCharts.deps.Moment("2020-12-01");
+        const numberOfOccurrences = 7;
+        const range = rangeBuilder.build({from: month1, to: month7});
+
+        const interval = intervalFactory.createMonthlyInterval(range);
+
+        expect(interval.size()).toEqual(numberOfOccurrences);
+        expect(interval.includes(month1)).toEqual(true);
+        expect(interval.includes(month2)).toEqual(true);
+        expect(interval.includes(month3)).toEqual(true);
+        expect(interval.includes(month4)).toEqual(true);
+        expect(interval.includes(month5)).toEqual(true);
+        expect(interval.includes(month6)).toEqual(true);
+        expect(interval.includes(month7)).toEqual(true);
+
+        done();
+    });
+
+    // testSuite.addTest("Monthly interval (specific days)", (done) => {
+    //     const month1 = new LearnCharts.deps.Moment("2020-06-01");
+    //     const month15 = new LearnCharts.deps.Moment("2020-07-01");
+    //     const month2 = new LearnCharts.deps.Moment("2020-08-01");
+    //     const month25 = new LearnCharts.deps.Moment("2020-09-01");
+    //     const month3 = new LearnCharts.deps.Moment("2020-10-01");
+    //     const month35 = new LearnCharts.deps.Moment("2020-11-01");
+    //     const expectedNumberOfIntervalDates = 6;
+    //     const range = rangeBuilder.build({from: month1, to: month35});
+
+    //     const interval = intervalFactory.createMonthlyInterval(range, [1, 15]);
+
+    //     expect(interval.size()).toEqual(expectedNumberOfIntervalDates);
+    //     expect(interval.includes(month1)).toEqual(true);
+    //     expect(interval.includes(month15)).toEqual(true);
+    //     expect(interval.includes(month2)).toEqual(true);
+    //     expect(interval.includes(month25)).toEqual(true);
+    //     expect(interval.includes(month3)).toEqual(true);
+    //     expect(interval.includes(month35)).toEqual(true);
+
+    //     done();
+    // });
+
+    // testSuite.addTest("Monthly interval (specific days and deltas)", (done) => {
+    //     const from = new LearnCharts.deps.Moment("2020-06-01");
+    //     const expected1 = new LearnCharts.deps.Moment("2020-05-26");
+    //     const expected2 = new LearnCharts.deps.Moment("2020-06-09");
+    //     const expected3 = new LearnCharts.deps.Moment("2020-06-25");
+    //     const expected4 = new LearnCharts.deps.Moment("2020-07-09");
+    //     const expected5 = new LearnCharts.deps.Moment("2020-07-26");
+    //     const expected6 = new LearnCharts.deps.Moment("2020-08-09");
+    //     const expected7 = new LearnCharts.deps.Moment("2020-08-26");
+    //     const to = new LearnCharts.deps.Moment("2020-09-01");
+    //     const expectedNumberOfIntervalDates = 7;
+    //     const range = rangeBuilder.build({from, to});
+
+    //     const interval = intervalFactory.createMonthlyInterval(range, [1, 15], [-6, -6]);
+
+    //     expect(interval.size()).toEqual(expectedNumberOfIntervalDates);
+    //     expect(interval.includes(expected1)).toEqual(true);
+    //     expect(interval.includes(expected2)).toEqual(true);
+    //     expect(interval.includes(expected3)).toEqual(true);
+    //     expect(interval.includes(expected4)).toEqual(true);
+    //     expect(interval.includes(expected5)).toEqual(true);
+    //     expect(interval.includes(expected6)).toEqual(true);
+    //     expect(interval.includes(expected7)).toEqual(true);
+
+    //     done();
+    // });
+    
+    // testSuite.addTest("Monthly interval (empty)", (done) => {
+    //     const aDate = new LearnCharts.deps.Moment("2020-06-29");
+    //     const anotherDate = new LearnCharts.deps.Moment("2020-07-29");
+    //     const range = rangeBuilder.build({from: aDate, to: anotherDate});
+
+    //     const interval = intervalFactory.createMonthlyInterval(range, [31]);
+
+    //     expect(interval.size()).toEqual(0);
+
+    //     done();
+    // });
+
     return testSuite;
 }
