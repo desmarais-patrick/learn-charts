@@ -58,7 +58,7 @@ export default class IntervalFactory {
             return mappedValue;
         });
     }
-    createMonthlyInterval(range, optionalDaysOfMonth, optionalAssociatedDeltas) {
+    createMonthlyInterval(range, optionalMonthlyDates, optionalAssociatedDeltas) {
         // Common, such as rent payment every 1st of the month
         // ex. createMonthlyInterval(rangeAB) => Every month on dayOfMonth(A) until B inclusively
         // ex. createMonthlyInterval(rangeAB, ["1"]) => Every 1st day of the month between A and B inclusively
@@ -66,27 +66,42 @@ export default class IntervalFactory {
         // ex. createMonthlyInverval(rangeAB, ["1"], [-3]) => Every 1st, minus three days, of the month between A and B inclusively
         const interval = new Interval("Monthly", range);
 
-        let date = new this.LearnCharts.deps.Moment(range.from);
-        do {
+        const monthlyDates = this._readyMonthlyDates(range.from, optionalMonthlyDates);
+        const lastDate = range.to;
+        while (monthlyDates.length > 0) {
+            const date = monthlyDates.shift();
             const copy = new this.LearnCharts.deps.Moment(date);
             interval.addValue(copy);
             date.add(1, "months");
-        } while (date.isBefore(range.to) || date.isSame(range.to));
+            if (date.isBefore(lastDate) || date.isSame(lastDate)) {
+                monthlyDates.push(date);
+            }
+        }
 
         return interval;
     }
-    _translateMonthDays(fromDate, filterDays) {
-        if (typeof filterDays === "undefined") {
-            return [fromDate.date()];
+    _readyMonthlyDates(fromDate, monthlyDates) {
+        if (typeof monthlyDates === "undefined") {
+            const copyDate = new this.LearnCharts.deps.Moment(fromDate);
+            return [copyDate];
         }
-        return weekDays.map((weekDay) => {
-            const mappedValue = this.DAYS_OF_WEEK[weekDay];
-            if (typeof mappedValue === "undefined") {
-                throw new Error(`Bad argument! Expected weekday '${weekDay}'` + 
-                    ` to be one of: ${Object.keys(this.DAYS_OF_WEEK).toString()}`);
+
+        const result = [];
+        const monthlyDatesCopy = monthlyDates.map((day) => { return day; });
+
+        let date = new this.LearnCharts.deps.Moment(fromDate);
+        const nextMonthFromDate = (new this.LearnCharts.deps.Moment(fromDate)).add(1, "months");
+        while (date.isBefore(nextMonthFromDate) && monthlyDatesCopy.length > 0) {
+            let dateDate = date.date();
+            while (monthlyDatesCopy.indexOf(dateDate) >= 0) {
+                let matchIndex = monthlyDatesCopy.indexOf(dateDate);
+                const copyDate = new this.LearnCharts.deps.Moment(date);
+                result.push(copyDate);
+                monthlyDatesCopy.splice(matchIndex, 1);
             }
-            return mappedValue;
-        });
+            date.add(1, "days");
+        }
+        return result;
     }
     createYearlyInterval(range, optionalDaysOfYear) {
         // Common, such as permit payment every year on birthday
